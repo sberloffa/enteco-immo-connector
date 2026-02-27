@@ -1,0 +1,90 @@
+/* Enteco Immo Connector — Admin Styles */
+
+.eic-wrap h1 {
+	margin-bottom: 1.2em;
+}
+
+/* Dashboard cards */
+.eic-dashboard-cards {
+	display: flex;
+	gap: 20px;
+	flex-wrap: wrap;
+	margin-bottom: 24px;
+}
+
+.eic-card {
+	background: #fff;
+	border: 1px solid #c3c4c7;
+	border-radius: 4px;
+	padding: 20px 24px;
+	min-width: 200px;
+	flex: 1;
+}
+
+.eic-card h3 {
+	margin-top: 0;
+	font-size: 13px;
+	text-transform: uppercase;
+	letter-spacing: .04em;
+	color: #50575e;
+}
+
+/* Progress bar */
+.eic-progress {
+	background: #e0e0e0;
+	border-radius: 3px;
+	height: 8px;
+	margin: 8px 0 6px;
+}
+
+.eic-progress-bar {
+	background: #2271b1;
+	height: 8px;
+	border-radius: 3px;
+	transition: width .3s;
+}
+
+/* Warnings */
+.eic-warn {
+	color: #b32d2e;
+}
+
+/* Import box */
+.eic-import-box {
+	background: #fff;
+	border: 1px solid #c3c4c7;
+	border-radius: 4px;
+	padding: 24px;
+	max-width: 600px;
+}
+
+#eic-import-result .notice {
+	margin: 0;
+}
+
+/* Onboarding card */
+.eic-onboarding-card {
+	background: #fff;
+	border: 1px solid #c3c4c7;
+	border-radius: 4px;
+	padding: 28px;
+	max-width: 620px;
+}
+
+.eic-pro-notice {
+	margin-top: 8px !important;
+	color: #50575e;
+}
+
+/* Pro upsell badge */
+.eic-pro-badge {
+	display: inline-block;
+	background: #f0b429;
+	color: #1d2327;
+	font-size: 11px;
+	font-weight: 600;
+	padding: 2px 6px;
+	border-radius: 3px;
+	vertical-align: middle;
+	margin-left: 4px;
+}
