@@ -36,6 +36,19 @@ class Plugin {
 
 		// AJAX handler for manual import.
 		add_action( 'wp_ajax_eic_run_import', [ $this, 'handle_import_ajax' ] );
+
+		// WP-Cron handler for automatic daily import.
+		add_action( 'eic_daily_import', [ $this, 'handle_cron_import' ] );
+	}
+
+	/**
+	 * Cron callback: runs the import only when automatic mode is active.
+	 */
+	public function handle_cron_import(): void {
+		if ( get_option( 'eic_import_mode', 'automatic' ) !== 'automatic' ) {
+			return;
+		}
+		( new ImportEngine() )->run();
 	}
 
 	public function handle_import_ajax(): void {

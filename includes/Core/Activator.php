@@ -16,5 +16,10 @@ class Activator {
 		( new PropertyPostType() )->register();
 		( new AgentPostType() )->register();
 		flush_rewrite_rules();
+
+		// Schedule daily automatic import (only if mode is automatic or not yet set).
+		if ( ! wp_next_scheduled( 'eic_daily_import' ) ) {
+			wp_schedule_event( time(), 'daily', 'eic_daily_import' );
+		}
 	}
 }

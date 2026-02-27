@@ -14,7 +14,9 @@ class ImportStatusPage {
 			wp_die( esc_html__( 'Unzureichende Berechtigungen.', 'enteco-immo-connector' ) );
 		}
 
-		$provider = (string) get_option( 'eic_provider', '' );
+		$provider       = (string) get_option( 'eic_provider', '' );
+		$import_mode    = (string) get_option( 'eic_import_mode', 'automatic' );
+		$next_scheduled = wp_next_scheduled( 'eic_daily_import' );
 
 		require EIC_PLUGIN_DIR . 'includes/Admin/views/import-status.php';
 	}

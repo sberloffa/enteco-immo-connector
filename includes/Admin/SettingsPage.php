@@ -22,6 +22,7 @@ class SettingsPage {
 		$oo_token            = (string) get_option( 'eic_onoffice_token', '' );
 		$oo_has_secret       = ! empty( get_option( 'eic_onoffice_secret', '' ) );
 		$field_engine        = (string) get_option( 'eic_field_engine', 'native' );
+		$import_mode         = (string) get_option( 'eic_import_mode', 'automatic' );
 		$delete_on_uninstall = (string) get_option( 'eic_delete_data_on_uninstall', 'no' );
 
 		require EIC_PLUGIN_DIR . 'includes/Admin/views/settings.php';
@@ -64,6 +65,27 @@ class SettingsPage {
 		$new_secret = wp_unslash( $_POST['eic_onoffice_secret'] ?? '' );
 		if ( ! empty( $new_secret ) ) {
 			update_option( 'eic_onoffice_secret', sanitize_text_field( $new_secret ) );
+		}
+
+		$import_mode = sanitize_key( wp_unslash( $_POST['eic_import_mode'] ?? 'automatic' ) );
+		if ( ! in_array( $import_mode, [ 'automatic', 'manual' ], true ) ) {
+			$import_mode = 'automatic';
+		}
+		$old_import_mode = (string) get_option( 'eic_import_mode', 'automatic' );
+		update_option( 'eic_import_mode', $import_mode );
+
+		// Reschedule or unschedule cron when mode changes.
+		if ( $import_mode !== $old_import_mode ) {
+			if ( $import_mode === 'automatic' ) {
+				if ( ! wp_next_scheduled( 'eic_daily_import' ) ) {
+					wp_schedule_event( time(), 'daily', 'eic_daily_import' );
+				}
+			} else {
+				$ts = wp_next_scheduled( 'eic_daily_import' );
+				if ( $ts ) {
+					wp_unschedule_event( $ts, 'eic_daily_import' );
+				}
+			}
 		}
 
 		$delete_flag = sanitize_key( wp_unslash( $_POST['eic_delete_data_on_uninstall'] ?? 'no' ) );

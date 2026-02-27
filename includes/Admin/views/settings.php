@@ -10,6 +10,7 @@
  * @var string $oo_token            OnOffice API token.
  * @var bool   $oo_has_secret       Whether an OnOffice secret is stored.
  * @var string $field_engine        Active field engine slug.
+ * @var string $import_mode         'automatic'|'manual'.
  * @var string $delete_on_uninstall 'yes'|'no'.
  */
 
@@ -103,6 +104,29 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</tr>
 			</table>
 		</div>
+
+		<h2><?php esc_html_e( 'Import-Modus', 'enteco-immo-connector' ); ?></h2>
+		<table class="form-table">
+			<tr>
+				<th scope="row"><?php esc_html_e( 'Import-Typ', 'enteco-immo-connector' ); ?></th>
+				<td>
+					<label>
+						<input type="radio" name="eic_import_mode" value="automatic"
+							<?php checked( $import_mode, 'automatic' ); ?>>
+						<?php esc_html_e( 'Automatisch — täglich via WP-Cron (empfohlen)', 'enteco-immo-connector' ); ?>
+					</label>
+					<br>
+					<label>
+						<input type="radio" name="eic_import_mode" value="manual"
+							<?php checked( $import_mode, 'manual' ); ?>>
+						<?php esc_html_e( 'Nur manuell', 'enteco-immo-connector' ); ?>
+					</label>
+					<p class="description">
+						<?php esc_html_e( 'Bei "Automatisch" wird täglich um die Zeit der Plugin-Aktivierung ein Import ausgeführt. Ein manueller Import ist in beiden Modi jederzeit möglich.', 'enteco-immo-connector' ); ?>
+					</p>
+				</td>
+			</tr>
+		</table>
 
 		<h2><?php esc_html_e( 'Allgemein', 'enteco-immo-connector' ); ?></h2>
 		<table class="form-table">
