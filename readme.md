@@ -1,16 +1,16 @@
-=== Enteco Immo Connector ===
-Contributors: enteco
-Tags: immobilien, real estate, justimmo, onoffice, import
-Requires at least: 6.0
-Tested up to: 6.7
-Requires PHP: 8.1
-Stable tag: 1.0.0
-License: GPLv2 or later
+### === Enteco Immo Connector ===
+Contributors: enteco \
+Tags: immobilien, real estate, justimmo, onoffice, import \
+Requires at least: 6.0 \
+Tested up to: 6.7 \
+Requires PHP: 8.1 \
+Stable tag: 1.0.0 \
+License: GPLv2 or later \
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 Import von Immobiliendaten aus Justimmo und OnOffice nach WordPress. Internes Datenmodell: OpenImmo 1.2.7c.
 
-== Description ==
+## == Beschreibung ==
 
 **Enteco Immo Connector** verbindet WordPress mit führenden Immobilien-Software-Plattformen.
 
@@ -38,7 +38,7 @@ Import von Immobiliendaten aus Justimmo und OnOffice nach WordPress. Internes Da
 * PageBuilder-Integrationen (Bricks, Elementor, Beaver, Breakdance)
 * Import-Log mit History
 
-== Installation ==
+## == Installation ==
 
 1. Plugin-ZIP ins WordPress-Admin hochladen oder in `/wp-content/plugins/` entpacken.
 2. Composer-Abhängigkeiten installieren: `composer install --no-dev --optimize-autoloader`
@@ -46,7 +46,7 @@ Import von Immobiliendaten aus Justimmo und OnOffice nach WordPress. Internes Da
 4. Im Admin unter **Immo Connector → Einstellungen** Provider und Zugangsdaten eintragen.
 5. Unter **Immo Connector → Import** den Import manuell starten.
 
-== Frequently Asked Questions ==
+## == Frequently Asked Questions ==
 
 = Welche PHP-Version wird benötigt? =
 PHP 8.1 oder höher.
