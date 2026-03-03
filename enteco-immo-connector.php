@@ -1,14 +1,14 @@
 <?php
 /**
  * Plugin Name:       Enteco Immo Connector
- * Plugin URI:        https://enteco.de/immo-connector
+ * Plugin URI:        https://enteco.at/immo-connector
  * Description:       Import von Immobiliendaten aus Justimmo und OnOffice nach WordPress. Internes Datenmodell: OpenImmo 1.2.7c.
  * Version:           1.0.0
  * Requires at least: 6.0
  * Tested up to:      6.7
  * Requires PHP:      8.1
  * Author:            Enteco GmbH
- * Author URI:        https://enteco.de
+ * Author URI:        https://enteco.at
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       enteco-immo-connector
