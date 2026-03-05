@@ -1,0 +1,35 @@
+{
+    "name": "enteco/immo-connector",
+    "description": "WordPress plugin to import real estate data from Justimmo and OnOffice (OpenImmo 1.2.7c)",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0-or-later",
+    "require": {
+        "php": ">=8.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.5",
+        "brain/monkey": "^2.6",
+        "mockery/mockery": "^1.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Enteco\\ImmoConnector\\": "includes/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Enteco\\ImmoConnector\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "test-coverage": "phpunit --coverage-text"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true,
+        "allow-plugins": {
+            "composer/installers": true
+        }
+    }
+}

@@ -1,0 +1,54 @@
+/* Enteco Immo Connector – Admin Styles */
+
+.eic-dashboard__cards {
+	display: flex;
+	gap: 1.5rem;
+	flex-wrap: wrap;
+	margin-top: 1.5rem;
+}
+
+.eic-card {
+	background: #fff;
+	border: 1px solid #c3c4c7;
+	border-radius: 4px;
+	padding: 1.5rem;
+	min-width: 200px;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
+}
+
+.eic-card__count {
+	font-size: 2.5rem;
+	font-weight: 600;
+	margin: 0.5rem 0;
+	color: #1d2327;
+}
+
+.eic-status {
+	display: inline-block;
+	padding: 0.2rem 0.6rem;
+	border-radius: 3px;
+	font-size: 0.85rem;
+	font-weight: 600;
+}
+
+.eic-status--done { background: #d1e7dd; color: #0a3622; }
+.eic-status--failed { background: #f8d7da; color: #58151c; }
+.eic-status--running { background: #fff3cd; color: #664d03; }
+
+.eic-upsell {
+	margin-top: 2rem;
+	max-width: 600px;
+}
+
+.eic-import-status .description {
+	margin-top: 0.5rem;
+	font-style: italic;
+}
+
+.eic-import-table th {
+	width: 180px;
+}
+
+.eic-onboarding {
+	max-width: 600px;
+}
