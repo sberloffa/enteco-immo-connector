@@ -73,13 +73,27 @@ final class ImportEngine {
 	private function build_provider(): ApiInterface {
 		$active = (string) get_option( 'eic_active_provider', '' );
 
-		return match ( $active ) {
-			'justimmo' => $this->build_justimmo(),
-			'onoffice'  => $this->build_onoffice(),
-			default    => throw new \RuntimeException(
+		/**
+		 * Filters the available import providers.
+		 * PRO plugins extend this with additional providers.
+		 *
+		 * @since 1.1.0
+		 * @param array<string, callable(): ApiInterface> $providers Map of slug → factory callable.
+		 */
+		$providers = apply_filters( 'eic/providers', [
+			'justimmo' => fn() => $this->build_justimmo(),
+			'onoffice'  => fn() => $this->build_onoffice(),
+		] );
+
+		$builder = $providers[ $active ] ?? null;
+
+		if ( null === $builder ) {
+			throw new \RuntimeException(
 				__( 'Kein API-Provider konfiguriert. Bitte gehen Sie zu Einstellungen.', 'enteco-immo-connector' )
-			),
-		};
+			);
+		}
+
+		return $builder();
 	}
 
 	/** Build Justimmo provider from saved credentials. */

@@ -45,6 +45,14 @@ final class SettingsPage {
 			'default'           => '',
 		] );
 
+		// Field engine – registered here so the sanitize guard applies even
+		// if a PRO plugin adds an input field for it.
+		register_setting( self::OPTION_GROUP, 'eic_field_engine', [
+			'type'              => 'string',
+			'sanitize_callback' => [ $this, 'sanitize_field_engine' ],
+			'default'           => 'native',
+		] );
+
 		// Justimmo.
 		register_setting( self::OPTION_GROUP, 'eic_justimmo_username', [
 			'type'              => 'string',
@@ -176,6 +184,26 @@ final class SettingsPage {
 		$allowed = [ '', 'justimmo', 'onoffice' ];
 		$value   = sanitize_text_field( (string) $value );
 		return in_array( $value, $allowed, true ) ? $value : '';
+	}
+
+	/**
+	 * Sanitize field engine option.
+	 *
+	 * After onboarding the engine choice is permanent – the stored value is
+	 * returned unchanged regardless of what was submitted.
+	 *
+	 * @param mixed $value Raw posted value.
+	 */
+	public function sanitize_field_engine( mixed $value ): string {
+		if ( get_option( 'eic_onboarding_complete' ) ) {
+			// Engine is locked after onboarding – ignore any submitted value.
+			return (string) get_option( 'eic_field_engine', 'native' );
+		}
+
+		/** @var array<string, mixed> $engines */
+		$engines = apply_filters( 'eic/field_engines', [ 'native' => '' ] );
+		$value   = sanitize_key( (string) $value );
+		return array_key_exists( $value, $engines ) ? $value : 'native';
 	}
 
 	/** AJAX handler: test API connection. */

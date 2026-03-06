@@ -73,6 +73,14 @@ final class Plugin {
 			( new SettingsPage() )->register();
 			( new ImportStatusPage() )->register();
 		}
+
+		/**
+		 * Fires after all FREE subsystems have been initialized.
+		 * PRO and third-party plugins hook here to attach their own services.
+		 *
+		 * @since 1.1.0
+		 */
+		do_action( 'eic/after_load_dependencies' );
 	}
 
 	/** Plugin-level hooks not covered by subsystems. */

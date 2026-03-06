@@ -194,12 +194,21 @@ final class PropertyImporter {
 		$count = wp_count_posts( 'eic_property' );
 		$total = (int) ( $count->publish ?? 0 ) + (int) ( $count->draft ?? 0 );
 
-		if ( $total >= self::FREE_LIMIT ) {
+		/**
+		 * Filters the maximum number of importable properties.
+		 * PRO sets this to PHP_INT_MAX to remove the limit.
+		 *
+		 * @since 1.1.0
+		 * @param int $limit Maximum eic_property count (FREE default: 50).
+		 */
+		$limit = (int) apply_filters( 'eic_object_limit', self::FREE_LIMIT );
+
+		if ( $total >= $limit ) {
 			throw new \RuntimeException(
 				sprintf(
 					/* translators: %d: free limit */
 					__( 'Import gestoppt: Die kostenlose Version ist auf %d Immobilien begrenzt. Bitte upgraden Sie auf PRO.', 'enteco-immo-connector' ),
-					self::FREE_LIMIT
+					$limit
 				)
 			);
 		}
