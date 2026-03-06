@@ -68,5 +68,5 @@ use Enteco\ImmoConnector\Core\Deactivator;
 register_activation_hook( EIC_PLUGIN_FILE, [ Activator::class, 'activate' ] );
 register_deactivation_hook( EIC_PLUGIN_FILE, [ Deactivator::class, 'deactivate' ] );
 
-// Boot the plugin.
-Plugin::get_instance()->run();
+// Boot the plugin on plugins_loaded so eic/after_load_dependencies fires within the WP hook lifecycle.
+add_action( 'plugins_loaded', fn() => Plugin::get_instance()->run(), 1 );

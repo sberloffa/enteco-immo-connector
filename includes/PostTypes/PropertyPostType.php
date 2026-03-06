@@ -84,9 +84,26 @@ final class PropertyPostType {
 	/**
 	 * Return the active field engine instance.
 	 *
+	 * The engine class is resolved from the `eic_field_engine` option (default: 'native').
+	 * PRO plugins can add custom engines via the `eic/field_engines` filter.
+	 *
 	 * @return \Enteco\ImmoConnector\PostTypes\FieldEngine\FieldEngineInterface
 	 */
 	public function get_field_engine(): \Enteco\ImmoConnector\PostTypes\FieldEngine\FieldEngineInterface {
-		return new NativeFieldEngine();
+		$engine_slug = (string) get_option( 'eic_field_engine', 'native' );
+
+		/**
+		 * Filters the available field engine classes.
+		 * PRO adds 'acf' and 'metabox' entries here.
+		 *
+		 * @since 1.1.0
+		 * @param array<string, class-string<\Enteco\ImmoConnector\PostTypes\FieldEngine\FieldEngineInterface>> $engines
+		 */
+		$engines = apply_filters( 'eic/field_engines', [
+			'native' => NativeFieldEngine::class,
+		] );
+
+		$class = $engines[ $engine_slug ] ?? NativeFieldEngine::class;
+		return new $class();
 	}
 }

@@ -18,8 +18,7 @@ Import von Immobiliendaten aus Justimmo und OnOffice nach WordPress. Internes Da
 
 * Custom Post Types `eic_property` (Immobilien) und `eic_agent` (Makler)
 * Provider-Support: Justimmo **oder** OnOffice (einer aktiv)
-* **Automatischer Import einmal täglich via WP-Cron** (voreingestellt) oder manuell per Admin-Button
-* Import-Modus in den Einstellungen jederzeit umschaltbar (automatisch ↔ manuell)
+* Manueller Import per Admin-Button
 * Objektlimit: max. 50 Objekte (publish + draft)
 * Native Field Engine (WordPress postmeta, keine 3rd-party-Abhängigkeit)
 * Basisfelder: Preise, Flächen, Adresse, Geo-Koordinaten, 10 boolesche Ausstattungsmerkmale
@@ -44,9 +43,8 @@ Import von Immobiliendaten aus Justimmo und OnOffice nach WordPress. Internes Da
 1. Plugin-ZIP ins WordPress-Admin hochladen oder in `/wp-content/plugins/` entpacken.
 2. Composer-Abhängigkeiten installieren: `composer install --no-dev --optimize-autoloader`
 3. Plugin aktivieren.
-4. Im Admin unter **Immo Connector → Einstellungen** Provider, Zugangsdaten und Import-Modus eintragen.
-5. Bei Modus „Automatisch": der erste Import findet täglich zur Zeit der Plugin-Aktivierung statt.
-6. Bei Modus „Manuell" oder sofortiger Erstimport: unter **Immo Connector → Import** den Import per Knopfdruck starten.
+4. Im Admin unter **Immo Connector → Einstellungen** Provider und Zugangsdaten eintragen.
+5. Unter **Immo Connector → Import** den ersten Import per Knopfdruck starten.
 
 ## == Frequently Asked Questions ==
 
@@ -60,29 +58,27 @@ In der FREE-Version ist genau ein Provider aktiv. Das PRO-Addon ermöglicht mehr
 Das Titelbild wird immer lokal als WordPress-Attachment gespeichert. Galerie-Bilder sind eine PRO-Funktion.
 
 = Gibt es automatische Importe? =
-Ja – die FREE-Version unterstützt einen automatischen Import **einmal täglich** via WP-Cron. Der Modus (automatisch/manuell) ist in den Einstellungen wählbar. Webhooks und Delta-Updates sind PRO-Features.
+In der FREE-Version sind nur manuelle Importe möglich. Automatische Importe (konfigurierbares Intervall, Delta-Updates) sind ein PRO-Feature.
 
-= Wann genau wird der automatische Import ausgeführt? =
-Das Cron-Event wird bei der Plugin-Aktivierung geplant und läuft täglich zur selben Uhrzeit. Den nächsten geplanten Zeitpunkt siehst du unter **Immo Connector → Import**.
-
-= Kann ich trotz automatischem Modus auch manuell importieren? =
-Ja. Der Button „Import jetzt starten" unter **Immo Connector → Import** funktioniert unabhängig vom eingestellten Modus jederzeit.
+= Wie starte ich einen Import? =
+Unter **Immo Connector → Import** den Button „Import jetzt starten" klicken.
 
 = Was passiert beim Deaktivieren des Plugins? =
-Das Cron-Event wird entfernt. Beim Reaktivieren wird es automatisch neu geplant.
+Alle Daten bleiben erhalten. Beim Reaktivieren funktioniert alles wie zuvor.
 
 == Screenshots ==
 
 1. Dashboard-Übersicht
-2. Einstellungsseite mit Provider-Auswahl und Import-Modus
-3. Import-Seite mit Modus-Anzeige und manuellem Trigger
+2. Einstellungsseite mit Provider-Auswahl
+3. Import-Seite mit manuellem Trigger
 
 == Changelog ==
 
 = 1.1.0 =
-* Automatischer Tagesimport via WP-Cron hinzugefügt (Standard: aktiviert)
-* Import-Modus (automatisch/manuell) in den Einstellungen wählbar
-* Import-Seite zeigt aktuellen Modus und nächsten geplanten Lauf
+* Extension Hooks für PRO-Addon: `eic/after_load_dependencies`, `eic/field_engines`, `eic/providers`, `eic_object_limit`
+* Field Engine wird aus Option `eic_field_engine` aufgelöst (filterbar via `eic/field_engines`)
+* Engine-Wahl nach Onboarding serverseitig gesperrt
+* Plugin bootstrappt via `plugins_loaded` Priority 1 für korrekte Hook-Reihenfolge
 
 = 1.0.0 =
 * Erstveröffentlichung
@@ -90,7 +86,7 @@ Das Cron-Event wird entfernt. Beim Reaktivieren wird es automatisch neu geplant.
 == Upgrade Notice ==
 
 = 1.1.0 =
-Neuer Import-Modus: automatisch täglich via WP-Cron (voreingestellt). Nach dem Plugin-Update einmal deaktivieren und reaktivieren, damit das Cron-Event geplant wird.
+Wichtige Verbesserungen für PRO-Kompatibilität. Kein Breaking Change für bestehende Installationen.
 
 = 1.0.0 =
 Erstveröffentlichung.

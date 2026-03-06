@@ -43,3 +43,21 @@ if (!defined('WEEK_IN_SECONDS')) {
 if (!defined('LIBXML_NONET')) {
     define('LIBXML_NONET', 2048);
 }
+
+// WP_Query stub – prevents fatal errors in classes that instantiate WP_Query.
+// Use WP_Query::$stub_posts to control what posts[] returns per test.
+if (!class_exists('WP_Query')) {
+    class WP_Query {
+        /** @var array<int> Configurable per test via static property. */
+        public static array $stub_posts = [];
+
+        /** @var array<int> */
+        public array $posts;
+
+        public function __construct(array $args = [])
+        {
+            $this->posts     = self::$stub_posts;
+            self::$stub_posts = []; // auto-reset after each instantiation
+        }
+    }
+}
